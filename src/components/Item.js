@@ -8,6 +8,7 @@ export default function Item({ item }) {
     currency_code,
     price,
     quantity,
+    state
   } = item;
 
   let itemImage = MainImage && MainImage.url_570xN;
@@ -32,22 +33,24 @@ export default function Item({ item }) {
   else if (quantity <= 20) level = 'medium';
   else level = 'high';
 
-  return (
-    <div className="item">
-      <div className="item-image">
-        <a href={url}>
-          <img src={itemImage} alt="" />
-        </a>
+  if (state === "active") {
+    return (
+      <div className="item">
+        <div className="item-image">
+          <a href={url}>
+            <img src={itemImage} alt="" />
+          </a>
+        </div>
+        <div className="item-details">
+          <p className="item-title">
+            {itemTitle}
+          </p>
+          <p className="item-price">{itemPrice}</p>
+          <p className={`item-quantity level-${level}`}>
+            {`${quantity} left`}
+          </p>
+        </div>
       </div>
-      <div className="item-details">
-        <p className="item-title">
-          {itemTitle}
-        </p>
-        <p className="item-price">{itemPrice}</p>
-        <p className={`item-quantity level-${level}`}>
-          {`${quantity} left`}
-        </p>
-      </div>
-    </div>
-  );
+    );
+  }
 }
